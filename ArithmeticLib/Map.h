@@ -21,7 +21,7 @@ public:
   size_t Count();
   K GetKey(size_t ind);
   bool IsFull();
-  void Insert(K key, V val);
+  void Insert(K key, V val, bool unique);
   bool IsInsertKey(const K key) const;
 
   const V& operator[] (K key) const;
@@ -168,9 +168,9 @@ inline bool TMap<K, V>::IsFull()
 }
 
 template<class K, class V>
-inline void TMap<K, V>::Insert(K key, V val)
+inline void TMap<K, V>::Insert(K key, V val, bool unique)
 {
-  if (IsInsertKey(key))
+  if (IsInsertKey(key) && unique)
   {
     for (size_t i = 0; i < size; i++)
       if (keys[i] == key)

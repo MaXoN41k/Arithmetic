@@ -1,11 +1,12 @@
 #include "Str.h"
 #include <string.h>
 
-TString::TString()
+TString::TString(int l)
 {
-  len = 0;
+  len = l;
   str = new char[len + 1];
-  str[0] = 0;
+  for (int i = 0; i< len; i++)
+    str[i] = ' ';
 }
 
 TString::TString(int l, char c)
@@ -79,7 +80,20 @@ TString TString::operator+(const TString& s)
   {
     res.str[j] = s.str[j - len];
   }
-  str[l] = 0;
+  res.str[l] = 0;
+  return res;
+}
+
+TString TString::operator+(const char& s)
+{
+  int l = len + 1;
+  TString res(l, 0);
+  for (int i = 0; i < len; i++)
+  {
+    res.str[i] = str[i];
+  }
+  res.str[l - 1] = s;
+  res.str[l] = 0;
   return res;
 }
 

@@ -19,5 +19,9 @@ public:
 
   TString GetInfix();
   TString GetPostfix();
+  TMap<char, double> GetOperands();
+
   void SetOperands();
+
+  double Calculate();
 };

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "Str.h"
 #include <ctype.h>
+#include "ArithmeticExpression.h"
 
 using namespace std;
 
@@ -45,20 +46,20 @@ void testMap()
 
 void testString()
 {
-  TString c(10, 'c');
-  cout << c;
+  char b = '2';
+  cout << double(int(b) - 48);
 }
 
-void testMap2()
-{
-  TMap<int, double> map(1);
-  map.Insert(1, 1.2);
-  map.Insert(2, 2.4);
-  map.Insert(2, 5);
-  //map[3] = 10;
-  //cin >> map;
-  cout << map;
-}
+//void testMap2()
+//{
+//  TMap<int, double> map(1);
+//  map.Insert(1, 1.2);
+//  map.Insert(2, 2.4);
+//  map.Insert(2, 5);
+//  //map[3] = 10;
+//  //cin >> map;
+//  cout << map;
+//}
 
 void testChar()
 {
@@ -75,11 +76,11 @@ void testChar()
   {
     char l = infix[i];
     if (isdigit(l) != 0)
-      lex.Insert(l, 'c');
+      lex.Insert(l, 'c', 0);
     else if (isalpha(l) != 0)
-      lex.Insert(l, 'v');
+      lex.Insert(l, 'v', 0);
     else if (pri.IsInsertKey(l) || l == '(' || l == ')')
-      lex.Insert(l, 'o');
+      lex.Insert(l, 'o', 0);
     else
       throw invalid_argument("Expression has invalid arguments");
   }
@@ -104,16 +105,29 @@ void testSetOpers()
   cout << operands;
 }
 
+void testArithmetic() 
+{
+  TString exp ("(a+2)*(c-d/e)");
+  TArithmeticExpression expr(exp);
+  cout << expr.GetInfix() << endl;
+  cout << expr.GetPostfix() << endl;
+  cout << expr.GetOperands() << endl;
+  expr.SetOperands();
+  cout << expr.GetOperands() << endl;
+  cout << expr.Calculate() << endl;
+}
+
 int main()
 {
   try
   {
-    testSetOpers();
+    //testSetOpers();
     //testChar();
     //testMap2();
     //testMap();
     //testStack();
     //testString();
+    testArithmetic();
   }
   catch (exception& ex)
   {
