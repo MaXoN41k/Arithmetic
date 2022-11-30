@@ -85,6 +85,21 @@ void TArithmeticExpression::Parse()
     else
       throw invalid_argument("Expression has invalid arguments");
   }
+  for (size_t i = 1; i < lex.Count() - 1; i++)
+  {
+    if (lex[lex.GetKey(i)] == 'o' && lex.GetKey(i) != '(' && lex.GetKey(i) != ')')
+      if ((lex[lex.GetKey(i - 1)] == 'o' || lex[lex.GetKey(i + 1)] == 'o') && lex.GetKey(i-1) != ')' && lex.GetKey(i+1) != '(')
+        throw invalid_argument("Expression has invalid arguments");
+    if (lex.GetKey(i) == '(')
+      if ((lex[lex.GetKey(i - 1)] != 'o' || (lex[lex.GetKey(i + 1)] != 'c' && lex[lex.GetKey(i + 1)] != 'v')) || (lex.GetKey(i - 1) == ')' || lex.GetKey(i - 1) == '(') || (lex.GetKey(i + 1) == ')' || lex.GetKey(i + 1) == '('))
+        throw invalid_argument("Expression has invalid arguments");
+    if (lex.GetKey(i) == ')')
+      if ((lex[lex.GetKey(i + 1)] != 'o' || (lex[lex.GetKey(i - 1)] != 'c' && lex[lex.GetKey(i - 1)] != 'v')) || (lex.GetKey(i - 1) == ')' || lex.GetKey(i - 1) == '(') || (lex.GetKey(i + 1) == ')' || lex.GetKey(i + 1) == '('))
+        throw invalid_argument("Expression has invalid arguments");
+    if (lex[lex.GetKey(i)] == 'v' || lex[lex.GetKey(i)] == 'c')
+      if (lex[lex.GetKey(i + 1)] == 'c' || lex[lex.GetKey(i + 1)] == 'v' || lex[lex.GetKey(i - 1)] == 'v' || lex[lex.GetKey(i - 1)] == 'c' || (lex.GetKey(i + 1) == ')' && lex.GetKey(i - 1) == '('))
+        throw invalid_argument("Expression has invalid arguments");
+  }
   lexems = lex;
 }
 

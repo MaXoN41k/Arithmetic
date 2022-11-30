@@ -5,6 +5,7 @@ project(${PROJECT_NAME}) # Название проекта
 
 set(arithmeticName arithmetic) #Переменная с именем приложения
 set(arithmeticLibName arithmeticLib) #Переменная с именем библиотеки
+set(MP2_TESTS test)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
 if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компилятора вариантов сборки
@@ -16,6 +17,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ArithmeticLib) #Добавляе
 
 add_subdirectory(Arithmetic) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
 add_subdirectory(ArithmeticLib)
+add_subdirectory(Test)
+add_subdirectory(gtest)
 
 #file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
 #file(GLOB srcs "*.cpp") #Добавляем в переменную srcs все файлы с расширением .cpp
